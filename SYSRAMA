@@ -1,0 +1,129 @@
+(DEFINE-FILE-INFO PACKAGE "INTERLISP" READTABLE "INTERLISP" BASE 10)
+
+(FILECREATED "18-Jun-2023 09:42:20" {DSK}<home>medley>il>SYSRAMA.;13 5884   
+
+      :EDIT-BY "PA"
+
+      :CHANGES-TO (FNS SUMMARIZE)
+
+      :PREVIOUS-DATE "18-Jun-2023 02:17:32" {DSK}<home>medley>il>SYSRAMA.;12)
+
+
+(PRETTYCOMPRINT SYSRAMACOMS)
+
+(RPAQQ SYSRAMACOMS [(FNS ARGTYPE2SYM DESCRIBEFNS DESCRIBEOBJS DESCRIBERECORDS GET.DESCRIBEFN 
+                         SUMMARIZE)
+                    (VARS (DESCRIBEFNS '((FNS DESCRIBEFNS)
+                                         (RECORDS DESCRIBERECORDS])
+(DEFINEQ
+
+(ARGTYPE2SYM
+  [LAMBDA (TYPE)                                             (* ; "Edited 17-Jun-2023 08:39 by PA")
+
+         (* Return as a symbol the type of argument corresponding to the positive integer 
+         TYPE returned by function ARGTYPE.)
+
+    (AND (SMALLP TYPE)
+         (SELECTQ TYPE
+             (0 'LAMBDA-spread)
+             (1 'NLAMBDA-spread)
+             (2 'LAMBDA-nospread)
+             (3 'NLAMBDA-nospread)
+             NIL])
+
+(DESCRIBEFNS
+  [LAMBDA (FNS TYPE)                                         (* ; "Edited 17-Jun-2023 09:52 by PA")
+
+         (* Describe to the primary output the functions in the list FNS of File Manager 
+         TYPE. Returns FNS.)
+
+    (AND TYPE (PRINTOUT NIL TYPE T))
+    (AND FNS (for FN in FNS do (PRINTOUT NIL 2 "(" FN %, .PPFTL (SMARTARGLIST FN)
+                                      ")" T 4 (FNTYP FN)
+                                      %,
+                                      (ARGTYPE2SYM (ARGTYPE FN))
+                                      T)))
+    FNS])
+
+(DESCRIBEOBJS
+  [LAMBDA (OBJECTS TYPE)                                     (* ; "Edited 17-Jun-2023 10:08 by PA")
+                                                             (* ; "Edited 14-Jun-2023 09:58 by PA")
+
+         (* Describe to the primary output the items in the list of Lisp OBJECTS of File 
+         Manager TYPE. Returns OBJECTS.)
+
+    (AND OBJECTS TYPE (PRINTOUT NIL TYPE T 2 .PPFTL OBJECTS T))
+    OBJECTS])
+
+(DESCRIBERECORDS
+  [LAMBDA (RECORDS TYPE)                                     (* ; "Edited 18-Jun-2023 02:11 by PA")
+
+         (* Describe to the primary output the records in the list RECORDS of File Manager 
+         TYPE. Returns RECORDS.)
+
+    (AND TYPE (PRINTOUT NIL TYPE T))
+    [AND RECORDS (bind FIELDS for REC in (SORT (APPEND RECORDS)) eachtime (SETQ FIELDS (
+                                                                                     RECORDFIELDNAMES
+                                                                                        REC))
+                    do (PRINTOUT NIL 2 REC)
+                       (if FIELDS
+                           then (PRINTOUT NIL ":" %, .PPFTL FIELDS T)
+                         else (TERPRI NIL]
+    RECORDS])
+
+(GET.DESCRIBEFN
+  [LAMBDA (TYPE)                                             (* ; "Edited 17-Jun-2023 09:41 by PA")
+
+         (* Return a function for printing a description of objects of File Manager TYPE.
+         Returns a default function if the one for TYPE is not available.)
+
+    (LET [(FN (CADR (ASSOC TYPE DESCRIBEFNS]
+         (OR FN (FUNCTION DESCRIBEOBJS])
+
+(SUMMARIZE
+  [LAMBDA (FILE TYPE NAME)                                   (* ; "Edited 18-Jun-2023 09:40 by PA")
+                                                             (* ; "Edited 14-Jun-2023 10:01 by PA")
+                                                             (* ; "Edited 11-Jun-2023 05:20 by PA")
+                                                             (* Print a report describing the Lisp 
+                                                             objects in symbolic FILE.)
+                                                             (*)
+
+         (* The report goes to the primary output and presents information only for the 
+         File Manager type designated by the TYPE argument if a symbol, the types in a 
+         list if the arguments is as such, or all registered types if NIL.
+         Prints the information only for the symbol or list of symbols NAME if not NIL.)
+                                                             (*)
+                                                             (* NIL is also an atom, so make sure 
+                                                             TYPEID is an actual symbol.)
+    (AND [BOUNDP (PACK (LIST FILE 'COMS]
+         (LET* [(TYPEID (COND
+                           ((AND (LITATOM TYPE)
+                                 (NOT (NULL TYPE)))
+                            (LIST TYPE))
+                           ((LISTP TYPE)
+                            TYPE)
+                           (T FILEPKGTYPES)))
+                (TYPES (SORT (APPEND TYPEID)))
+                (NAMES (COND
+                          ((AND (LITATOM NAME)
+                                (NOT (NULL NAME)))
+                           (LIST NAME))
+                          ((LISTP NAME)
+                           NAME)
+                          (T NIL]
+               (bind (FIRSTITEMP _ T)
+                     SYMBOLS for ITEM in TYPES eachtime (SETQ SYMBOLS (FILECOMSLST FILE ITEM))
+                  when SYMBOLS do (if FIRSTITEMP
+                                      then (SETQ FIRSTITEMP NIL)
+                                    else (TERPRI NIL))
+                                  (APPLY (GET.DESCRIBEFN ITEM)
+                                         (LIST (INTERSECTION SYMBOLS (OR NAMES SYMBOLS))
+                                               ITEM])
+)
+
+(RPAQQ DESCRIBEFNS ((FNS DESCRIBEFNS)
+                    (RECORDS DESCRIBERECORDS)))
+(DECLARE%: DONTCOPY
+  (FILEMAP (NIL (584 5770 (ARGTYPE2SYM 594 . 1063) (DESCRIBEFNS 1065 . 1669) (DESCRIBEOBJS 1671 . 2123) 
+(DESCRIBERECORDS 2125 . 2947) (GET.DESCRIBEFN 2949 . 3337) (SUMMARIZE 3339 . 5768)))))
+STOP
