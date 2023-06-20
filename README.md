@@ -4,7 +4,7 @@ Sysrama is an [Interlisp](https://interlisp.org) documentation tool for presenti
 
 Sysrama lets you see the big picture of a system, a panorama. Hence the name.
 
-![Sample output of the Sysrama Interlisp documentation tool.](https://raw.githubusercontent.com/pamoroso/sysrama/main/femtounit.png)
+![Sample output of the Sysrama Interlisp documentation tool.](https://raw.githubusercontent.com/pamoroso/sysrama/main/sysrama.png)
 
 
 ## Installation
