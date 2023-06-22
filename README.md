@@ -69,6 +69,7 @@ See the [list of releases](https://github.com/pamoroso/sysrama/releases) for not
 
 ## Learn more
 
+- [Sysrama project updates](https://journal.paoloamoroso.com/tag:sysrama)
 - [Medley Interlisp](https://interlisp.org)
 
 
