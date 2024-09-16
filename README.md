@@ -1,6 +1,6 @@
 # Sysrama
 
-Sysrama is an [Interlisp](https://interlisp.org) documentation tool for presenting information on the Lisp objects of a program. It produces reports listing the types and signatures of functions, the fields of records, global variables, property lists, Exec commands, and more.
+Sysrama is an [Interlisp](https://interlisp.org) documentation tool for presenting information on the Lisp objects of a program. It produces reports listing the types and signatures of functions, the fields of records, global variables, property lists, Exec commands, and more. The tool can also represent and visualize programs as NoteCards hypertexts.
 
 Sysrama lets you see the big picture of a system, a panorama. Hence the name.
 
@@ -26,6 +26,8 @@ Finally, load Sysrama by evaluating:
 ```lisp
 (FILESLOAD SYSRAMA)
 ```
+
+The hypertext features require NoteCards, so make sure it is loaded too.
 
 
 ## Usage
@@ -58,6 +60,8 @@ or to specific objects such as the function `MYFUN`:
 ### Reference
 
 The entry point to Sysrama is this function:
+
+`(CODECARDS FILE)` [function]: creates a NoteCards notefile that represents as a hypertext the Lisp program in the symbolic `FILE`. The function makes one filebox per File Manager type, containing one card per Lisp object of the type. The fileboxes are filed under the Table of Contents. `CODECARDS` returns the filebox.
 
 `(SUMMARIZE FILE TYPE NAME)` [function]: prints a report describing the Lisp objects in symbolic `FILE`. The report goes to the primary output and contains information only for the File Manager type designated by the `TYPE` argument if a symbol, a list of types if the argument is as such, or all registered types if `NIL`. Prints the information only for the symbol or list of symbols `NAME` if not `NIL`.
 
