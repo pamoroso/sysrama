@@ -1,18 +1,18 @@
 (DEFINE-FILE-INFO PACKAGE "INTERLISP" READTABLE "INTERLISP" BASE 10)
 
-(FILECREATED "18-Jun-2023 09:42:20" {DSK}<home>medley>il>SYSRAMA.;13 5884   
+(FILECREATED "15-Sep-2024 11:54:58" {DSK}<home>medley>il>SYSRAMA.;25 8065   
 
       :EDIT-BY "PA"
 
-      :CHANGES-TO (FNS SUMMARIZE)
+      :CHANGES-TO (FNS DESCRIBE.TO.CARD)
 
-      :PREVIOUS-DATE "18-Jun-2023 02:17:32" {DSK}<home>medley>il>SYSRAMA.;12)
+      :PREVIOUS-DATE "15-Sep-2024 09:27:24" {DSK}<home>medley>il>SYSRAMA.;24)
 
 
 (PRETTYCOMPRINT SYSRAMACOMS)
 
-(RPAQQ SYSRAMACOMS [(FNS ARGTYPE2SYM DESCRIBEFNS DESCRIBEOBJS DESCRIBERECORDS GET.DESCRIBEFN 
-                         SUMMARIZE)
+(RPAQQ SYSRAMACOMS [(FNS ARGTYPE2SYM CODECARDS DESCRIBE.TO.CARD DESCRIBEFNS DESCRIBEOBJS 
+                         DESCRIBERECORDS GET.DESCRIBEFN SUMMARIZE)
                     (VARS (DESCRIBEFNS '((FNS DESCRIBEFNS)
                                          (RECORDS DESCRIBERECORDS])
 (DEFINEQ
@@ -30,6 +30,50 @@
              (2 'LAMBDA-nospread)
              (3 'NLAMBDA-nospread)
              NIL])
+
+(CODECARDS
+  [LAMBDA (FILE)                                             (* ; "Edited 15-Sep-2024 09:25 by PA")
+
+         (* Create a NoteCards notefile that represents the Lisp objects in the symbolic 
+         FILE. The notefile contains a filebox per File Manager type and each filebox 
+         contains one card per Lisp object. Returns the notefile.)
+
+         (* This is a proof of concept implementation to experimenti with representing 
+         Lisp programs as hypertexts.)
+
+    (AND [BOUNDP (PACK (LIST FILE 'COMS]
+         (NCP.CreateNoteFile FILE)
+         (LET* ((NFILE (NCP.OpenNoteFile FILE))
+                (TOC (NCP.GetContentsFileBox NFILE)))
+               (bind SYMBOLS for ITEM in FILEPKGTYPES eachtime (SETQ SYMBOLS (FILECOMSLST FILE ITEM))
+                  when SYMBOLS
+                  do (LET* [(CARDS (for SYM in SYMBOLS
+                                      collect (LET ((CARD (NCP.CreateTextCard NFILE SYM T)))
+                                                   (DESCRIBE.TO.CARD SYM ITEM CARD)
+                                                   CARD)))
+                            (FBOX (NCP.CreateFileBox NFILE ITEM T NIL CARDS (LIST TOC]
+                           (NCP.OpenCard TOC)
+                           (SCROLLW (NCP.WindowFromCard TOC)
+                                  0.0 0.0)))
+               NFILE])
+
+(DESCRIBE.TO.CARD
+  [LAMBDA (SYMBOL TYPE CARD)                                 (* ; "Edited 15-Sep-2024 11:52 by PA")
+                                                             (* ; "Edited 14-Sep-2024 11:00 by PA")
+
+         (* Describe the Lisp object named SYMBOL of File Manager TYPE to the NoteCards 
+         CARD. Returns CARD.)
+
+    (LET ((STREAM (OPENTEXTSTREAM)))
+         (RESETLST
+             (RESETSAVE (OUTPUT STREAM))
+             (RESETSAVE NIL (LIST 'CLOSEF STREAM))
+             (APPLY* (GET.DESCRIBEFN TYPE)
+                    (LIST SYMBOL)
+                    TYPE))
+         (NCP.CardAddText CARD (COERCETEXTOBJ STREAM 'STRINGP)
+                'END)
+         CARD])
 
 (DESCRIBEFNS
   [LAMBDA (FNS TYPE)                                         (* ; "Edited 17-Jun-2023 09:52 by PA")
@@ -124,6 +168,7 @@
 (RPAQQ DESCRIBEFNS ((FNS DESCRIBEFNS)
                     (RECORDS DESCRIBERECORDS)))
 (DECLARE%: DONTCOPY
-  (FILEMAP (NIL (584 5770 (ARGTYPE2SYM 594 . 1063) (DESCRIBEFNS 1065 . 1669) (DESCRIBEOBJS 1671 . 2123) 
-(DESCRIBERECORDS 2125 . 2947) (GET.DESCRIBEFN 2949 . 3337) (SUMMARIZE 3339 . 5768)))))
+  (FILEMAP (NIL (618 7951 (ARGTYPE2SYM 628 . 1097) (CODECARDS 1099 . 2519) (DESCRIBE.TO.CARD 2521 . 3244
+) (DESCRIBEFNS 3246 . 3850) (DESCRIBEOBJS 3852 . 4304) (DESCRIBERECORDS 4306 . 5128) (GET.DESCRIBEFN 
+5130 . 5518) (SUMMARIZE 5520 . 7949)))))
 STOP
