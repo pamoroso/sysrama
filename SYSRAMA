@@ -1,12 +1,12 @@
 (DEFINE-FILE-INFO PACKAGE "INTERLISP" READTABLE "INTERLISP" BASE 10)
 
-(FILECREATED "15-Sep-2024 11:54:58" {DSK}<home>medley>il>SYSRAMA.;25 8065   
+(FILECREATED "17-Sep-2024 02:38:46" {DSK}<home>medley>il>SYSRAMA.;26 8165   
 
       :EDIT-BY "PA"
 
-      :CHANGES-TO (FNS DESCRIBE.TO.CARD)
+      :CHANGES-TO (FNS CODECARDS)
 
-      :PREVIOUS-DATE "15-Sep-2024 09:27:24" {DSK}<home>medley>il>SYSRAMA.;24)
+      :PREVIOUS-DATE "15-Sep-2024 11:54:58" {DSK}<home>medley>il>SYSRAMA.;25)
 
 
 (PRETTYCOMPRINT SYSRAMACOMS)
@@ -32,14 +32,15 @@
              NIL])
 
 (CODECARDS
-  [LAMBDA (FILE)                                             (* ; "Edited 15-Sep-2024 09:25 by PA")
+  [LAMBDA (FILE)                                             (* ; "Edited 17-Sep-2024 02:38 by PA")
+                                                             (* ; "Edited 15-Sep-2024 09:25 by PA")
 
          (* Create a NoteCards notefile that represents the Lisp objects in the symbolic 
          FILE. The notefile contains a filebox per File Manager type and each filebox 
          contains one card per Lisp object. Returns the notefile.)
 
-         (* This is a proof of concept implementation to experimenti with representing 
-         Lisp programs as hypertexts.)
+         (* This is a proof of concept implementation to experiment with representing Lisp 
+         programs as hypertexts.)
 
     (AND [BOUNDP (PACK (LIST FILE 'COMS]
          (NCP.CreateNoteFile FILE)
@@ -168,7 +169,7 @@
 (RPAQQ DESCRIBEFNS ((FNS DESCRIBEFNS)
                     (RECORDS DESCRIBERECORDS)))
 (DECLARE%: DONTCOPY
-  (FILEMAP (NIL (618 7951 (ARGTYPE2SYM 628 . 1097) (CODECARDS 1099 . 2519) (DESCRIBE.TO.CARD 2521 . 3244
-) (DESCRIBEFNS 3246 . 3850) (DESCRIBEOBJS 3852 . 4304) (DESCRIBERECORDS 4306 . 5128) (GET.DESCRIBEFN 
-5130 . 5518) (SUMMARIZE 5520 . 7949)))))
+  (FILEMAP (NIL (611 8051 (ARGTYPE2SYM 621 . 1090) (CODECARDS 1092 . 2619) (DESCRIBE.TO.CARD 2621 . 3344
+) (DESCRIBEFNS 3346 . 3950) (DESCRIBEOBJS 3952 . 4404) (DESCRIBERECORDS 4406 . 5228) (GET.DESCRIBEFN 
+5230 . 5618) (SUMMARIZE 5620 . 8049)))))
 STOP
